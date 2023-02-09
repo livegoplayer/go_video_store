@@ -1,0 +1,63 @@
+{
+
+  "client_list" : [
+    "http://vue-file-store.k8s.show",
+    "http://test-vue-file-store.k8s.show",
+    "https://gofilestore.oss-cn-shanghai.aliyuncs.com"
+  ],
+
+  "app_name" : "file_store",
+  "app_host" : "file.store.k8s.show",
+  "app_port" : "80",
+
+  "auth_middleware": true,
+  "user_app_host" : "http://testlocal.52db.work:8080",
+  "preview_host" : "http://testlocal.52db.xyz:9091/forward",
+  "file_host" : "http://testlocal.52db.xyz:9091/dnd",
+
+  "log": {
+    "access_log_file_path": "../access_log/video_store",
+    "log_type": "file",
+    "file": {
+      "path": "../application_log/vs_app_log",
+      "clean_time_hour": 30,
+      "split_time_hour": 1
+    },
+    "mysql": {
+      "username": "root",
+      "password": "IfUCT",
+      "host": "124.156.149.7",
+      "port": 39853,
+      "dbname": "video_store",
+      "table_name": "vs_log"
+    },
+    "rabbitmq":{
+      "url": "amqp://guest:guest@139.224.132.234:31001/",
+      "routingKey": "log_go_user",
+      "exchange": "log",
+      "app_type": 1
+    }
+  },
+
+  "database": {
+    "default_db": {
+      "name":"file_store"
+    },
+    "file_store_master": {
+      "username": "root",
+      "password": "IfUCT",
+      "prefix": "vs_",
+      "host": "124.156.149.7",
+      "port": 39853,
+      "net":  "tcp",
+      "allow_native_passwords": true,
+      "collation" : "",
+      "dbname": "video_store",
+      "log_mode": true,
+      "max_open_con": 10,
+      "max_idle_con": 200,
+      "is_write": true
+    }
+  },
+
+}

@@ -1,0 +1,17 @@
+version: '2'
+
+services:
+    go_filestore:
+      build: ./
+      container_name: go_filestore
+      environment:
+         SERVICE_NAME: go_filestore
+         SERVICE_TAGS: go_filestore,http,80
+      ports:
+         - "81:80"
+      volumes:
+         - ../:/apps
+         # 日志存放路径，需要同级目录创建本目录
+         - ../logs:/apps/logs
+      working_dir: /apps/go_file_store
+      command: /bin/sh -c "make linux_build  && ./main"

@@ -1,0 +1,193 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: file-store
+  labels:
+    istio-injection: enabled
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: file-store-imroc-io
+  namespace: file-store
+spec:
+  secretName: file-store-imroc-io-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - file-store.k8s.show
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: app-sc
+  namespace: file-store
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+provisioner: kubernetes.io/no-provisioner
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: file-store-app-p-volume
+  namespace: file-store
+  labels:
+    type: app
+spec:
+  storageClassName: app-sc
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    path: /apps
+    server: localhost.kvm-1
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: app-pvc-claim
+  namespace: file-store
+spec:
+  storageClassName: app-sc
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 2Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: file-store
+  name: file-store
+  namespace: file-store
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: file-store
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: file-store
+    spec:
+      containers:
+      - args: ["./main"]
+        env:
+        - name: SERVICE_NAME
+          value: file_store
+        - name: SERVICE_TAGS
+          value: file_store,http,80
+        image: xjyplayer/file-store:1.0.1
+        imagePullPolicy: IfNotPresent
+        name: file-store
+        ports:
+        - containerPort: 80
+        resources: {}
+        volumeMounts:
+        - mountPath: /apps/go_file_store
+          subPath: go_file_store
+          name: file-store-pvc
+        - mountPath: /apps/fs_app_log
+          subPath: fs_app_log
+          name: file-store-pvc
+        - mountPath: /apps/access_log
+          subPath: access_log
+          name: file-store-pvc
+        workingDir: /apps/go_file_store
+      restartPolicy: Always
+      serviceAccountName: ""
+      volumes:
+      - name: file-store-pvc
+        persistentVolumeClaim:
+          claimName: app-pvc-claim
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: file-store
+  name: file-store
+  namespace: file-store
+spec:
+  ports:
+  - name: file-store-server
+    port: 80
+    targetPort: 80
+  selector:
+    io.kompose.service: file-store
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name:  file-store-gw
+  namespace: file-store
+  labels:
+    app: file-store
+    io.kompose.service: file-store
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+    - hosts:
+        - file-store.k8s.show
+      tls:
+        mode: SIMPLE # enables HTTPS on this port
+        credentialName: file-store-imroc-io-tls # fetches certs from Kubernetes secret
+      port:
+        number: 443
+        name: file-store-dashboard-https
+        protocol: HTTPS
+    - hosts:
+        - file-store.k8s.show
+      port:
+        number: 80
+        name: file-store-dashboard-http
+        protocol: HTTP
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: file-store-dr
+  namespace: file-store
+spec:
+  host: file-store.file-store.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: file-store-vs
+  namespace: file-store
+spec:
+  hosts:
+    - file-store.k8s.show
+  gateways:
+    - file-store-gw
+  http:
+    - match: null
+      route:
+        - destination:
+            host: file-store.file-store.svc.cluster.local
+            port:
+              number: 80
