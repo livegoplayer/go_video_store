@@ -1,4 +1,4 @@
-module github.com/livegoplayer/video_store
+module github.com/livegoplayer/go_video_store
 
 go 1.18
 

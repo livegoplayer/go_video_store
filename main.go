@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	myconfig "github.com/livegoplayer/video_store/config"
-	"github.com/livegoplayer/video_store/routers"
+	myconfig "github.com/livegoplayer/go_video_store/config"
+	"github.com/livegoplayer/go_video_store/routers"
 	"github.com/spf13/viper"
 
 	c "github.com/livegoplayer/go_gin_helper"

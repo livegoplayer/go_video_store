@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/livegoplayer/go_user_rpc/user"
 	userpb "github.com/livegoplayer/go_user_rpc/user/user_grpc"
-	"github.com/livegoplayer/video_store/server"
+	"github.com/livegoplayer/go_video_store/server"
 )
 
 func TestHandler(c *server.Context) {

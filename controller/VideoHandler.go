@@ -1,9 +1,9 @@
 package controller
 
 import (
-	"github.com/livegoplayer/video_store/controller/dto"
-	"github.com/livegoplayer/video_store/server"
-	"github.com/livegoplayer/video_store/service/video_search"
+	"github.com/livegoplayer/go_video_store/controller/dto"
+	"github.com/livegoplayer/go_video_store/server"
+	"github.com/livegoplayer/go_video_store/service/video_search"
 )
 
 func VideoHandler(c *server.Context) {

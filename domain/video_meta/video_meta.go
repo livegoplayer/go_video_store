@@ -1,8 +1,8 @@
 package video_meta
 
 import (
-	"github.com/livegoplayer/video_store/repository_template_model/video"
-	"github.com/livegoplayer/video_store/repository_template_model/video_tag"
+	"github.com/livegoplayer/go_video_store/repository_template_model/video"
+	"github.com/livegoplayer/go_video_store/repository_template_model/video_tag"
 )
 
 func GetVideoListByVideoIds(videoIds []int64, page int64, pageSize int64) video.VideoCollect {

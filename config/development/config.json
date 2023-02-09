@@ -58,6 +58,6 @@
       "max_idle_con": 200,
       "is_write": true
     }
-  },
+  }
 
 }
