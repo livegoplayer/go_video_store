@@ -11,13 +11,13 @@ type VideoResources struct {
 	VideoUrl         string `gorm:"video_url" json:"video_url"`                   //视频原来的播放地址
 	Data             string `gorm:"data" json:"data"`                             //数据，一般存储的是有益于获取视频播放源的数据    \r\nddys.art:  有 id
 	VideoReferDomain string `gorm:"video_refer_domain" json:"video_refer_domain"` //视频原来的网站地址
-	UptDatetime      int64  `gorm:"upt_datetime" json:"upt_datetime"`
+	UptDatetime      string `gorm:"upt_datetime" json:"upt_datetime"`
 	Name             string `gorm:"name" json:"name"`       //源网站对该集或者视频的播放item描述
 	Season           int64  `gorm:"season" json:"season"`   //季 * 100 如果要得出正确的季/100 就行了 \r\n有编号的是特别篇
 	Episode          int64  `gorm:"episode" json:"episode"` //集，分属季的集
-	Id               int64  `gorm:"id;PRIMARY_KEY" json:"id"`
+	Id               int64  `gorm:"id" json:"id"`
 	VideoRefer       int64  `gorm:"video_refer" json:"video_refer"` //1： ddys.art
-	AddDatetime      int64  `gorm:"add_datetime" json:"add_datetime"`
+	AddDatetime      string `gorm:"add_datetime" json:"add_datetime"`
 	VideoId          int64  `gorm:"video_id" json:"video_id"`
 }
 

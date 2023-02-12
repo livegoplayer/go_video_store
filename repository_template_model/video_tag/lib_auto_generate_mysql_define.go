@@ -40,10 +40,10 @@ type _VideoTagQueryColsStruct struct {
 
 func GetVideoTagQueryCols() *_VideoTagQueryColsStruct {
 	return &_VideoTagQueryColsStruct{
-		UptDatetime: "int64",
+		UptDatetime: "string",
 		TagId:       "int64",
 		Id:          "int64",
-		AddDatetime: "int64",
+		AddDatetime: "string",
 		VideoId:     "int64",
 	}
 }

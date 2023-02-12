@@ -176,10 +176,6 @@ func (m *TagQuery) kSetUptDatetime(val interface{}) *TagQuery {
 	return m.Set("upt_datetime", val)
 }
 
-func (m *TagQuery) kIncUptDatetime(num int) *TagQuery {
-	return m.Inc("upt_datetime", num)
-}
-
 func (m *TagQuery) kWheUptDatetimeIn(values interface{}) *TagQuery {
 	return m.whereIn("upt_datetime", values)
 }
@@ -266,10 +262,6 @@ func (m *TagQuery) kWheAddDatetime(args ...interface{}) *TagQuery {
 
 func (m *TagQuery) kSetAddDatetime(val interface{}) *TagQuery {
 	return m.Set("add_datetime", val)
-}
-
-func (m *TagQuery) kIncAddDatetime(num int) *TagQuery {
-	return m.Inc("add_datetime", num)
 }
 
 func (m *TagQuery) kWheAddDatetimeIn(values interface{}) *TagQuery {

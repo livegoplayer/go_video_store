@@ -51,13 +51,13 @@ func GetVideoResourcesQueryCols() *_VideoResourcesQueryColsStruct {
 		VideoUrl:         "string",
 		Data:             "string",
 		VideoReferDomain: "string",
-		UptDatetime:      "int64",
+		UptDatetime:      "string",
 		Name:             "string",
 		Season:           "int64",
 		Episode:          "int64",
 		Id:               "int64",
 		VideoRefer:       "int64",
-		AddDatetime:      "int64",
+		AddDatetime:      "string",
 		VideoId:          "int64",
 	}
 }

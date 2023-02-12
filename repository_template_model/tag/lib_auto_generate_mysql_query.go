@@ -36,87 +36,6 @@ func CountTagAll() int64 {
 
 /**************************************** 根据 Index 生成的方法 **************************************************/
 
-func UpdateTagByIds(id []int64, p *Tag) int64 {
-	build := NewTagQuery()
-
-	if len(id) == 0 {
-		return 0
-	}
-
-	if len(id) == 1 {
-		build.kWheId(id[0])
-	} else {
-		build.kWheIdIn(id)
-	}
-
-	return build.update(p)
-}
-
-func UpdateTagByIdsWhatEver(id []int64, p *Tag) int64 {
-	build := NewTagQuery()
-
-	if len(id) == 1 {
-		build.kWheId(id[0])
-	} else {
-		build.kWheIdIn(id)
-	}
-
-	return build.update(p)
-}
-
-func FetchByIdsWithPageSize(id []int64, page int, pageSize int) TagCollect {
-	if page == 0 {
-		page = 1
-	}
-
-	offset := (page - 1) * pageSize
-
-	build := NewTagQuery()
-
-	if len(id) == 0 {
-		return make(TagCollect, 0)
-	}
-
-	if len(id) == 1 {
-		build.kWheId(id[0])
-	} else {
-		build.kWheIdIn(id)
-	}
-
-	return build.Skip(offset).Limit(pageSize).Get()
-}
-
-func CheckExistById(id int64) bool {
-	build := NewTagQuery()
-	build.kWheId(id)
-	cnt := build.Count()
-	return cnt > 0
-}
-
-func GetFirstById(id int64) *Tag {
-	build := NewTagQuery()
-	build.kWheId(id)
-	return build.First()
-}
-
-func DeleteById(id int64) int64 {
-	build := NewTagQuery()
-	build.kWheId(id)
-	return build.Delete()
-}
-
-func GetOneById(id int64) *Tag {
-	build := NewTagQuery()
-	build.kWheId(id)
-	return build.GetOne()
-}
-
-func UpdateTagById(id int64, p *Tag) int64 {
-	build := NewTagQuery()
-	build.kWheId(id)
-	return build.update(p)
-}
-
 func CheckExistByTagId(tagId int64) bool {
 	build := NewTagQuery()
 	build.kWheTagId(tagId)
@@ -243,4 +162,84 @@ func CountTagByTagIds(tagId []int64) int64 {
 	}
 
 	return build.Count()
+}
+func UpdateTagByIds(id []int64, p *Tag) int64 {
+	build := NewTagQuery()
+
+	if len(id) == 0 {
+		return 0
+	}
+
+	if len(id) == 1 {
+		build.kWheId(id[0])
+	} else {
+		build.kWheIdIn(id)
+	}
+
+	return build.update(p)
+}
+
+func UpdateTagByIdsWhatEver(id []int64, p *Tag) int64 {
+	build := NewTagQuery()
+
+	if len(id) == 1 {
+		build.kWheId(id[0])
+	} else {
+		build.kWheIdIn(id)
+	}
+
+	return build.update(p)
+}
+
+func FetchByIdsWithPageSize(id []int64, page int, pageSize int) TagCollect {
+	if page == 0 {
+		page = 1
+	}
+
+	offset := (page - 1) * pageSize
+
+	build := NewTagQuery()
+
+	if len(id) == 0 {
+		return make(TagCollect, 0)
+	}
+
+	if len(id) == 1 {
+		build.kWheId(id[0])
+	} else {
+		build.kWheIdIn(id)
+	}
+
+	return build.Skip(offset).Limit(pageSize).Get()
+}
+
+func CheckExistById(id int64) bool {
+	build := NewTagQuery()
+	build.kWheId(id)
+	cnt := build.Count()
+	return cnt > 0
+}
+
+func GetFirstById(id int64) *Tag {
+	build := NewTagQuery()
+	build.kWheId(id)
+	return build.First()
+}
+
+func DeleteById(id int64) int64 {
+	build := NewTagQuery()
+	build.kWheId(id)
+	return build.Delete()
+}
+
+func GetOneById(id int64) *Tag {
+	build := NewTagQuery()
+	build.kWheId(id)
+	return build.GetOne()
+}
+
+func UpdateTagById(id int64, p *Tag) int64 {
+	build := NewTagQuery()
+	build.kWheId(id)
+	return build.update(p)
 }

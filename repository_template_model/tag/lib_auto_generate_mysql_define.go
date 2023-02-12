@@ -41,12 +41,12 @@ type _TagQueryColsStruct struct {
 
 func GetTagQueryCols() *_TagQueryColsStruct {
 	return &_TagQueryColsStruct{
-		UptDatetime: "int64",
+		UptDatetime: "string",
 		TagName:     "string",
 		TagId:       "int64",
 		Id:          "int64",
 		TagUrl:      "string",
-		AddDatetime: "int64",
+		AddDatetime: "string",
 	}
 }
 

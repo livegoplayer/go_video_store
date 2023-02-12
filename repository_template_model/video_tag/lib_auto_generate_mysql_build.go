@@ -176,10 +176,6 @@ func (m *VideoTagQuery) kSetUptDatetime(val interface{}) *VideoTagQuery {
 	return m.Set("upt_datetime", val)
 }
 
-func (m *VideoTagQuery) kIncUptDatetime(num int) *VideoTagQuery {
-	return m.Inc("upt_datetime", num)
-}
-
 func (m *VideoTagQuery) kWheUptDatetimeIn(values interface{}) *VideoTagQuery {
 	return m.whereIn("upt_datetime", values)
 }
@@ -234,10 +230,6 @@ func (m *VideoTagQuery) kWheAddDatetime(args ...interface{}) *VideoTagQuery {
 
 func (m *VideoTagQuery) kSetAddDatetime(val interface{}) *VideoTagQuery {
 	return m.Set("add_datetime", val)
-}
-
-func (m *VideoTagQuery) kIncAddDatetime(num int) *VideoTagQuery {
-	return m.Inc("add_datetime", num)
 }
 
 func (m *VideoTagQuery) kWheAddDatetimeIn(values interface{}) *VideoTagQuery {

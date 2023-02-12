@@ -13,8 +13,8 @@ func (s TagCollect) Filter(f func(item Tag) bool) TagCollect {
 	}
 	return m
 }
-func (s TagCollect) GroupByUptDatetime() map[int64]TagCollect {
-	m := make(map[int64]TagCollect)
+func (s TagCollect) GroupByUptDatetime() map[string]TagCollect {
+	m := make(map[string]TagCollect)
 	for _, v := range s {
 		if _, ok := m[v.UptDatetime]; !ok {
 			m[v.UptDatetime] = make(TagCollect, 0)
@@ -68,8 +68,8 @@ func (s TagCollect) GroupByTagUrl() map[string]TagCollect {
 	return m
 }
 
-func (s TagCollect) GroupByAddDatetime() map[int64]TagCollect {
-	m := make(map[int64]TagCollect)
+func (s TagCollect) GroupByAddDatetime() map[string]TagCollect {
+	m := make(map[string]TagCollect)
 	for _, v := range s {
 		if _, ok := m[v.AddDatetime]; !ok {
 			m[v.AddDatetime] = make(TagCollect, 0)
@@ -79,8 +79,8 @@ func (s TagCollect) GroupByAddDatetime() map[int64]TagCollect {
 	return m
 }
 
-func (s TagCollect) KeyByUptDatetime() map[int64]Tag {
-	m := make(map[int64]Tag)
+func (s TagCollect) KeyByUptDatetime() map[string]Tag {
+	m := make(map[string]Tag)
 	for _, v := range s {
 		m[v.UptDatetime] = v
 	}
@@ -114,15 +114,15 @@ func (s TagCollect) KeyByTagUrl() map[string]Tag {
 	}
 	return m
 }
-func (s TagCollect) KeyByAddDatetime() map[int64]Tag {
-	m := make(map[int64]Tag)
+func (s TagCollect) KeyByAddDatetime() map[string]Tag {
+	m := make(map[string]Tag)
 	for _, v := range s {
 		m[v.AddDatetime] = v
 	}
 	return m
 }
-func (s TagCollect) PluckUptDatetime() []int64 {
-	list := make([]int64, len(s))
+func (s TagCollect) PluckUptDatetime() []string {
+	list := make([]string, len(s))
 	for i, v := range s {
 		list[i] = v.UptDatetime
 	}
@@ -156,17 +156,17 @@ func (s TagCollect) PluckTagUrl() []string {
 	}
 	return list
 }
-func (s TagCollect) PluckAddDatetime() []int64 {
-	list := make([]int64, len(s))
+func (s TagCollect) PluckAddDatetime() []string {
+	list := make([]string, len(s))
 	for i, v := range s {
 		list[i] = v.AddDatetime
 	}
 	return list
 }
 
-func (s TagCollect) PluckUniUptDatetime() []int64 {
-	uniMap := make(map[int64]bool)
-	list := make([]int64, 0)
+func (s TagCollect) PluckUniUptDatetime() []string {
+	uniMap := make(map[string]bool)
+	list := make([]string, 0)
 	for _, v := range s {
 		_, ok := uniMap[v.UptDatetime]
 		if !ok {
@@ -229,9 +229,9 @@ func (s TagCollect) PluckUniTagUrl() []string {
 	return list
 }
 
-func (s TagCollect) PluckUniAddDatetime() []int64 {
-	uniMap := make(map[int64]bool)
-	list := make([]int64, 0)
+func (s TagCollect) PluckUniAddDatetime() []string {
+	uniMap := make(map[string]bool)
+	list := make([]string, 0)
 	for _, v := range s {
 		_, ok := uniMap[v.AddDatetime]
 		if !ok {

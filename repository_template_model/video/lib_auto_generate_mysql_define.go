@@ -42,8 +42,8 @@ func GetVideoQueryCols() *_VideoQueryColsStruct {
 	return &_VideoQueryColsStruct{
 		PrettyName:  "string",
 		MetaName:    "string",
-		UptDatetime: "int64",
-		AddDatetime: "int64",
+		UptDatetime: "string",
+		AddDatetime: "string",
 		VideoId:     "int64",
 	}
 }

@@ -36,87 +36,6 @@ func CountVideoTagAll() int64 {
 
 /**************************************** 根据 Index 生成的方法 **************************************************/
 
-func UpdateVideoTagByIds(id []int64, p *VideoTag) int64 {
-	build := NewVideoTagQuery()
-
-	if len(id) == 0 {
-		return 0
-	}
-
-	if len(id) == 1 {
-		build.kWheId(id[0])
-	} else {
-		build.kWheIdIn(id)
-	}
-
-	return build.update(p)
-}
-
-func UpdateVideoTagByIdsWhatEver(id []int64, p *VideoTag) int64 {
-	build := NewVideoTagQuery()
-
-	if len(id) == 1 {
-		build.kWheId(id[0])
-	} else {
-		build.kWheIdIn(id)
-	}
-
-	return build.update(p)
-}
-
-func FetchByIdsWithPageSize(id []int64, page int, pageSize int) VideoTagCollect {
-	if page == 0 {
-		page = 1
-	}
-
-	offset := (page - 1) * pageSize
-
-	build := NewVideoTagQuery()
-
-	if len(id) == 0 {
-		return make(VideoTagCollect, 0)
-	}
-
-	if len(id) == 1 {
-		build.kWheId(id[0])
-	} else {
-		build.kWheIdIn(id)
-	}
-
-	return build.Skip(offset).Limit(pageSize).Get()
-}
-
-func CheckExistById(id int64) bool {
-	build := NewVideoTagQuery()
-	build.kWheId(id)
-	cnt := build.Count()
-	return cnt > 0
-}
-
-func GetFirstById(id int64) *VideoTag {
-	build := NewVideoTagQuery()
-	build.kWheId(id)
-	return build.First()
-}
-
-func DeleteById(id int64) int64 {
-	build := NewVideoTagQuery()
-	build.kWheId(id)
-	return build.Delete()
-}
-
-func GetOneById(id int64) *VideoTag {
-	build := NewVideoTagQuery()
-	build.kWheId(id)
-	return build.GetOne()
-}
-
-func UpdateVideoTagById(id int64, p *VideoTag) int64 {
-	build := NewVideoTagQuery()
-	build.kWheId(id)
-	return build.update(p)
-}
-
 func CheckExistByVideoIdAndTagId(videoId int64, tagId int64) bool {
 	build := NewVideoTagQuery()
 	build.kWheVideoId(videoId)
@@ -279,6 +198,86 @@ func CountVideoTagByVideoIds(videoId []int64) int64 {
 	}
 
 	return build.Count()
+}
+func UpdateVideoTagByIds(id []int64, p *VideoTag) int64 {
+	build := NewVideoTagQuery()
+
+	if len(id) == 0 {
+		return 0
+	}
+
+	if len(id) == 1 {
+		build.kWheId(id[0])
+	} else {
+		build.kWheIdIn(id)
+	}
+
+	return build.update(p)
+}
+
+func UpdateVideoTagByIdsWhatEver(id []int64, p *VideoTag) int64 {
+	build := NewVideoTagQuery()
+
+	if len(id) == 1 {
+		build.kWheId(id[0])
+	} else {
+		build.kWheIdIn(id)
+	}
+
+	return build.update(p)
+}
+
+func FetchByIdsWithPageSize(id []int64, page int, pageSize int) VideoTagCollect {
+	if page == 0 {
+		page = 1
+	}
+
+	offset := (page - 1) * pageSize
+
+	build := NewVideoTagQuery()
+
+	if len(id) == 0 {
+		return make(VideoTagCollect, 0)
+	}
+
+	if len(id) == 1 {
+		build.kWheId(id[0])
+	} else {
+		build.kWheIdIn(id)
+	}
+
+	return build.Skip(offset).Limit(pageSize).Get()
+}
+
+func CheckExistById(id int64) bool {
+	build := NewVideoTagQuery()
+	build.kWheId(id)
+	cnt := build.Count()
+	return cnt > 0
+}
+
+func GetFirstById(id int64) *VideoTag {
+	build := NewVideoTagQuery()
+	build.kWheId(id)
+	return build.First()
+}
+
+func DeleteById(id int64) int64 {
+	build := NewVideoTagQuery()
+	build.kWheId(id)
+	return build.Delete()
+}
+
+func GetOneById(id int64) *VideoTag {
+	build := NewVideoTagQuery()
+	build.kWheId(id)
+	return build.GetOne()
+}
+
+func UpdateVideoTagById(id int64, p *VideoTag) int64 {
+	build := NewVideoTagQuery()
+	build.kWheId(id)
+	return build.update(p)
 }
 
 func CheckExistByTagId(tagId int64) bool {

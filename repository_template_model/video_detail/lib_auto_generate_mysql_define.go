@@ -62,12 +62,12 @@ func GetVideoDetailQueryCols() *_VideoDetailQueryColsStruct {
 		VideoDescription: "string",
 		Score:            "float64",
 		PosterListUrl:    "string",
-		UptDatetime:      "int64",
+		UptDatetime:      "string",
 		PerUpdateTime:    "string",
 		Season:           "int64",
 		Id:               "int64",
 		SetNum:           "int64",
-		AddDatetime:      "int64",
+		AddDatetime:      "string",
 		VideoId:          "int64",
 	}
 }

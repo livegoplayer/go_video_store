@@ -41,7 +41,7 @@
 
   "database": {
     "default_db": {
-      "name":"file_store"
+      "name":"video_store"
     },
     "file_store_master": {
       "username": "root",

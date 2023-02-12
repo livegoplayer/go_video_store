@@ -7,11 +7,11 @@ import (
 const PREFIX = "vs_"
 
 type VideoTag struct {
-	UptDatetime int64 `gorm:"upt_datetime" json:"upt_datetime"`
-	TagId       int64 `gorm:"tag_id" json:"tag_id"`
-	Id          int64 `gorm:"id;PRIMARY_KEY" json:"id"`
-	AddDatetime int64 `gorm:"add_datetime" json:"add_datetime"`
-	VideoId     int64 `gorm:"video_id" json:"video_id"`
+	UptDatetime string `gorm:"upt_datetime" json:"upt_datetime"`
+	TagId       int64  `gorm:"tag_id" json:"tag_id"`
+	Id          int64  `gorm:"id" json:"id"`
+	AddDatetime string `gorm:"add_datetime" json:"add_datetime"`
+	VideoId     int64  `gorm:"video_id" json:"video_id"`
 }
 
 func (VideoTag) TableName() string {

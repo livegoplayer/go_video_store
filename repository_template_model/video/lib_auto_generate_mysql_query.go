@@ -36,87 +36,6 @@ func CountVideoAll() int64 {
 
 /**************************************** 根据 Index 生成的方法 **************************************************/
 
-func UpdateVideoByVideoIds(videoId []int64, p *Video) int64 {
-	build := NewVideoQuery()
-
-	if len(videoId) == 0 {
-		return 0
-	}
-
-	if len(videoId) == 1 {
-		build.kWheVideoId(videoId[0])
-	} else {
-		build.kWheVideoIdIn(videoId)
-	}
-
-	return build.update(p)
-}
-
-func UpdateVideoByVideoIdsWhatEver(videoId []int64, p *Video) int64 {
-	build := NewVideoQuery()
-
-	if len(videoId) == 1 {
-		build.kWheVideoId(videoId[0])
-	} else {
-		build.kWheVideoIdIn(videoId)
-	}
-
-	return build.update(p)
-}
-
-func FetchByVideoIdsWithPageSize(videoId []int64, page int, pageSize int) VideoCollect {
-	if page == 0 {
-		page = 1
-	}
-
-	offset := (page - 1) * pageSize
-
-	build := NewVideoQuery()
-
-	if len(videoId) == 0 {
-		return make(VideoCollect, 0)
-	}
-
-	if len(videoId) == 1 {
-		build.kWheVideoId(videoId[0])
-	} else {
-		build.kWheVideoIdIn(videoId)
-	}
-
-	return build.Skip(offset).Limit(pageSize).Get()
-}
-
-func CheckExistByVideoId(videoId int64) bool {
-	build := NewVideoQuery()
-	build.kWheVideoId(videoId)
-	cnt := build.Count()
-	return cnt > 0
-}
-
-func GetFirstByVideoId(videoId int64) *Video {
-	build := NewVideoQuery()
-	build.kWheVideoId(videoId)
-	return build.First()
-}
-
-func DeleteByVideoId(videoId int64) int64 {
-	build := NewVideoQuery()
-	build.kWheVideoId(videoId)
-	return build.Delete()
-}
-
-func GetOneByVideoId(videoId int64) *Video {
-	build := NewVideoQuery()
-	build.kWheVideoId(videoId)
-	return build.GetOne()
-}
-
-func UpdateVideoByVideoId(videoId int64, p *Video) int64 {
-	build := NewVideoQuery()
-	build.kWheVideoId(videoId)
-	return build.update(p)
-}
-
 func CheckExistByPrettyName(prettyName string) bool {
 	build := NewVideoQuery()
 	build.kWhePrettyName(prettyName)
@@ -243,4 +162,84 @@ func CountVideoByPrettyNames(prettyName []string) int64 {
 	}
 
 	return build.Count()
+}
+func UpdateVideoByVideoIds(videoId []int64, p *Video) int64 {
+	build := NewVideoQuery()
+
+	if len(videoId) == 0 {
+		return 0
+	}
+
+	if len(videoId) == 1 {
+		build.kWheVideoId(videoId[0])
+	} else {
+		build.kWheVideoIdIn(videoId)
+	}
+
+	return build.update(p)
+}
+
+func UpdateVideoByVideoIdsWhatEver(videoId []int64, p *Video) int64 {
+	build := NewVideoQuery()
+
+	if len(videoId) == 1 {
+		build.kWheVideoId(videoId[0])
+	} else {
+		build.kWheVideoIdIn(videoId)
+	}
+
+	return build.update(p)
+}
+
+func FetchByVideoIdsWithPageSize(videoId []int64, page int, pageSize int) VideoCollect {
+	if page == 0 {
+		page = 1
+	}
+
+	offset := (page - 1) * pageSize
+
+	build := NewVideoQuery()
+
+	if len(videoId) == 0 {
+		return make(VideoCollect, 0)
+	}
+
+	if len(videoId) == 1 {
+		build.kWheVideoId(videoId[0])
+	} else {
+		build.kWheVideoIdIn(videoId)
+	}
+
+	return build.Skip(offset).Limit(pageSize).Get()
+}
+
+func CheckExistByVideoId(videoId int64) bool {
+	build := NewVideoQuery()
+	build.kWheVideoId(videoId)
+	cnt := build.Count()
+	return cnt > 0
+}
+
+func GetFirstByVideoId(videoId int64) *Video {
+	build := NewVideoQuery()
+	build.kWheVideoId(videoId)
+	return build.First()
+}
+
+func DeleteByVideoId(videoId int64) int64 {
+	build := NewVideoQuery()
+	build.kWheVideoId(videoId)
+	return build.Delete()
+}
+
+func GetOneByVideoId(videoId int64) *Video {
+	build := NewVideoQuery()
+	build.kWheVideoId(videoId)
+	return build.GetOne()
+}
+
+func UpdateVideoByVideoId(videoId int64, p *Video) int64 {
+	build := NewVideoQuery()
+	build.kWheVideoId(videoId)
+	return build.update(p)
 }

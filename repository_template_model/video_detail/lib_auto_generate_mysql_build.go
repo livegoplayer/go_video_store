@@ -340,10 +340,6 @@ func (m *VideoDetailQuery) kSetUptDatetime(val interface{}) *VideoDetailQuery {
 	return m.Set("upt_datetime", val)
 }
 
-func (m *VideoDetailQuery) kIncUptDatetime(num int) *VideoDetailQuery {
-	return m.Inc("upt_datetime", num)
-}
-
 func (m *VideoDetailQuery) kWheUptDatetimeIn(values interface{}) *VideoDetailQuery {
 	return m.whereIn("upt_datetime", values)
 }
@@ -434,10 +430,6 @@ func (m *VideoDetailQuery) kWheAddDatetime(args ...interface{}) *VideoDetailQuer
 
 func (m *VideoDetailQuery) kSetAddDatetime(val interface{}) *VideoDetailQuery {
 	return m.Set("add_datetime", val)
-}
-
-func (m *VideoDetailQuery) kIncAddDatetime(num int) *VideoDetailQuery {
-	return m.Inc("add_datetime", num)
 }
 
 func (m *VideoDetailQuery) kWheAddDatetimeIn(values interface{}) *VideoDetailQuery {

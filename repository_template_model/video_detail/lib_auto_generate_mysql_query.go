@@ -36,6 +36,60 @@ func CountVideoDetailAll() int64 {
 
 /**************************************** 根据 Index 生成的方法 **************************************************/
 
+func CheckExistByVideoIdAndSeason(videoId int64, season int64) bool {
+	build := NewVideoDetailQuery()
+	build.kWheVideoId(videoId)
+	build.kWheSeason(season)
+	cnt := build.Count()
+	return cnt > 0
+}
+
+func GetFirstByVideoIdAndSeason(videoId int64, season int64) *VideoDetail {
+	build := NewVideoDetailQuery()
+	build.kWheVideoId(videoId)
+	build.kWheSeason(season)
+	return build.First()
+}
+
+func DeleteAllByVideoIdAndSeason(videoId int64, season int64) int64 {
+	build := NewVideoDetailQuery()
+	build.kWheVideoId(videoId)
+	build.kWheSeason(season)
+	return build.Delete()
+}
+
+func GetOneByVideoIdAndSeason(videoId int64, season int64) *VideoDetail {
+	build := NewVideoDetailQuery()
+	build.kWheVideoId(videoId)
+	build.kWheSeason(season)
+	return build.GetOne()
+}
+
+func UpdateVideoDetailByVideoIdAndSeason(videoId int64, season int64, p *VideoDetail) int64 {
+	build := NewVideoDetailQuery()
+	build.kWheVideoId(videoId)
+	build.kWheSeason(season)
+	return build.update(p)
+}
+
+func FetchByVideoIdAndSeason(videoId int64, season int64) VideoDetailCollect {
+	build := NewVideoDetailQuery()
+	build.kWheVideoId(videoId)
+	build.kWheSeason(season)
+	return build.Get()
+}
+
+func FetchByVideoIdAndSeasonWithPageSize(videoId int64, season int64, page int, pageSize int) VideoDetailCollect {
+	if page == 0 {
+		page = 1
+	}
+
+	offset := (page - 1) * pageSize
+
+	build := NewVideoDetailQuery()
+	return build.Skip(offset).Limit(pageSize).Get()
+}
+
 func UpdateVideoDetailByIds(id []int64, p *VideoDetail) int64 {
 	build := NewVideoDetailQuery()
 
@@ -115,60 +169,6 @@ func UpdateVideoDetailById(id int64, p *VideoDetail) int64 {
 	build := NewVideoDetailQuery()
 	build.kWheId(id)
 	return build.update(p)
-}
-
-func CheckExistByVideoIdAndSeason(videoId int64, season int64) bool {
-	build := NewVideoDetailQuery()
-	build.kWheVideoId(videoId)
-	build.kWheSeason(season)
-	cnt := build.Count()
-	return cnt > 0
-}
-
-func GetFirstByVideoIdAndSeason(videoId int64, season int64) *VideoDetail {
-	build := NewVideoDetailQuery()
-	build.kWheVideoId(videoId)
-	build.kWheSeason(season)
-	return build.First()
-}
-
-func DeleteAllByVideoIdAndSeason(videoId int64, season int64) int64 {
-	build := NewVideoDetailQuery()
-	build.kWheVideoId(videoId)
-	build.kWheSeason(season)
-	return build.Delete()
-}
-
-func GetOneByVideoIdAndSeason(videoId int64, season int64) *VideoDetail {
-	build := NewVideoDetailQuery()
-	build.kWheVideoId(videoId)
-	build.kWheSeason(season)
-	return build.GetOne()
-}
-
-func UpdateVideoDetailByVideoIdAndSeason(videoId int64, season int64, p *VideoDetail) int64 {
-	build := NewVideoDetailQuery()
-	build.kWheVideoId(videoId)
-	build.kWheSeason(season)
-	return build.update(p)
-}
-
-func FetchByVideoIdAndSeason(videoId int64, season int64) VideoDetailCollect {
-	build := NewVideoDetailQuery()
-	build.kWheVideoId(videoId)
-	build.kWheSeason(season)
-	return build.Get()
-}
-
-func FetchByVideoIdAndSeasonWithPageSize(videoId int64, season int64, page int, pageSize int) VideoDetailCollect {
-	if page == 0 {
-		page = 1
-	}
-
-	offset := (page - 1) * pageSize
-
-	build := NewVideoDetailQuery()
-	return build.Skip(offset).Limit(pageSize).Get()
 }
 
 func CheckExistByVideoId(videoId int64) bool {

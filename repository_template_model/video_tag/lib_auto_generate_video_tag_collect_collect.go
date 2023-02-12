@@ -13,8 +13,8 @@ func (s VideoTagCollect) Filter(f func(item VideoTag) bool) VideoTagCollect {
 	}
 	return m
 }
-func (s VideoTagCollect) GroupByUptDatetime() map[int64]VideoTagCollect {
-	m := make(map[int64]VideoTagCollect)
+func (s VideoTagCollect) GroupByUptDatetime() map[string]VideoTagCollect {
+	m := make(map[string]VideoTagCollect)
 	for _, v := range s {
 		if _, ok := m[v.UptDatetime]; !ok {
 			m[v.UptDatetime] = make(VideoTagCollect, 0)
@@ -57,8 +57,8 @@ func (s VideoTagCollect) GroupById() map[int64]VideoTagCollect {
 	return m
 }
 
-func (s VideoTagCollect) GroupByAddDatetime() map[int64]VideoTagCollect {
-	m := make(map[int64]VideoTagCollect)
+func (s VideoTagCollect) GroupByAddDatetime() map[string]VideoTagCollect {
+	m := make(map[string]VideoTagCollect)
 	for _, v := range s {
 		if _, ok := m[v.AddDatetime]; !ok {
 			m[v.AddDatetime] = make(VideoTagCollect, 0)
@@ -68,8 +68,8 @@ func (s VideoTagCollect) GroupByAddDatetime() map[int64]VideoTagCollect {
 	return m
 }
 
-func (s VideoTagCollect) KeyByUptDatetime() map[int64]VideoTag {
-	m := make(map[int64]VideoTag)
+func (s VideoTagCollect) KeyByUptDatetime() map[string]VideoTag {
+	m := make(map[string]VideoTag)
 	for _, v := range s {
 		m[v.UptDatetime] = v
 	}
@@ -96,15 +96,15 @@ func (s VideoTagCollect) KeyById() map[int64]VideoTag {
 	}
 	return m
 }
-func (s VideoTagCollect) KeyByAddDatetime() map[int64]VideoTag {
-	m := make(map[int64]VideoTag)
+func (s VideoTagCollect) KeyByAddDatetime() map[string]VideoTag {
+	m := make(map[string]VideoTag)
 	for _, v := range s {
 		m[v.AddDatetime] = v
 	}
 	return m
 }
-func (s VideoTagCollect) PluckUptDatetime() []int64 {
-	list := make([]int64, len(s))
+func (s VideoTagCollect) PluckUptDatetime() []string {
+	list := make([]string, len(s))
 	for i, v := range s {
 		list[i] = v.UptDatetime
 	}
@@ -131,17 +131,17 @@ func (s VideoTagCollect) PluckId() []int64 {
 	}
 	return list
 }
-func (s VideoTagCollect) PluckAddDatetime() []int64 {
-	list := make([]int64, len(s))
+func (s VideoTagCollect) PluckAddDatetime() []string {
+	list := make([]string, len(s))
 	for i, v := range s {
 		list[i] = v.AddDatetime
 	}
 	return list
 }
 
-func (s VideoTagCollect) PluckUniUptDatetime() []int64 {
-	uniMap := make(map[int64]bool)
-	list := make([]int64, 0)
+func (s VideoTagCollect) PluckUniUptDatetime() []string {
+	uniMap := make(map[string]bool)
+	list := make([]string, 0)
 	for _, v := range s {
 		_, ok := uniMap[v.UptDatetime]
 		if !ok {
@@ -191,9 +191,9 @@ func (s VideoTagCollect) PluckUniId() []int64 {
 	return list
 }
 
-func (s VideoTagCollect) PluckUniAddDatetime() []int64 {
-	uniMap := make(map[int64]bool)
-	list := make([]int64, 0)
+func (s VideoTagCollect) PluckUniAddDatetime() []string {
+	uniMap := make(map[string]bool)
+	list := make([]string, 0)
 	for _, v := range s {
 		_, ok := uniMap[v.AddDatetime]
 		if !ok {
