@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-    go_filestore:
+    go_video_store:
       build: ./
       container_name: go_video_store
       environment:
