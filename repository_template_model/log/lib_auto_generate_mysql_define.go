@@ -3,6 +3,7 @@ package log
 import (
 	"github.com/livegoplayer/go_db_helper/mysql"
 	"reflect"
+	"strings"
 )
 
 type WhereCb = mysql.WhereCb
@@ -48,6 +49,33 @@ func GetLogQueryCols() *_LogQueryColsStruct {
 		Message:     "string",
 		AddDatetime: "string",
 	}
+}
+
+func (cols *_LogQueryColsStruct) GetColsTags() []string {
+	return []string{
+		"data",
+		"level",
+		"cat",
+		"id",
+		"message",
+		"add_datetime",
+	}
+}
+
+func (cols *_LogQueryColsStruct) Has(colName string) bool {
+	for _, clo := range cols.GetColsTags() {
+		if clo == colName {
+			return true
+		}
+	}
+	return false
+}
+
+func (cols *_LogQueryColsStruct) GetPrimaryColsStr() string {
+	primaryIndexList := []string{
+		"id",
+	}
+	return strings.Join(primaryIndexList, ",")
 }
 
 func (m *LogQuery) First() *Log {

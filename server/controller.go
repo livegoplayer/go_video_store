@@ -3,7 +3,7 @@ package server
 import (
 	"github.com/gin-gonic/gin"
 	ginHelper "github.com/livegoplayer/go_gin_helper"
-	"github.com/livegoplayer/go_helper/structs"
+	"github.com/livegoplayer/go_helper/utils"
 )
 
 // MustParams 用于定义存放请求中的公共参数
@@ -11,7 +11,7 @@ type MustParams struct {
 }
 
 func (p MustParams) ToMap() map[string]interface{} {
-	return structs.Map(p)
+	return utils.ToMap(p)
 }
 
 type Controller func(ctx *Context)

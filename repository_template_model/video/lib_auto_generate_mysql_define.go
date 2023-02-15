@@ -3,6 +3,7 @@ package video
 import (
 	"github.com/livegoplayer/go_db_helper/mysql"
 	"reflect"
+	"strings"
 )
 
 type WhereCb = mysql.WhereCb
@@ -46,6 +47,32 @@ func GetVideoQueryCols() *_VideoQueryColsStruct {
 		AddDatetime: "string",
 		VideoId:     "int64",
 	}
+}
+
+func (cols *_VideoQueryColsStruct) GetColsTags() []string {
+	return []string{
+		"pretty_name",
+		"meta_name",
+		"upt_datetime",
+		"add_datetime",
+		"video_id",
+	}
+}
+
+func (cols *_VideoQueryColsStruct) Has(colName string) bool {
+	for _, clo := range cols.GetColsTags() {
+		if clo == colName {
+			return true
+		}
+	}
+	return false
+}
+
+func (cols *_VideoQueryColsStruct) GetPrimaryColsStr() string {
+	primaryIndexList := []string{
+		"video_id",
+	}
+	return strings.Join(primaryIndexList, ",")
 }
 
 func (m *VideoQuery) First() *Video {

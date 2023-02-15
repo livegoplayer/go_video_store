@@ -15,7 +15,7 @@ type VideoResources struct {
 	Name             string `gorm:"name" json:"name"`       //源网站对该集或者视频的播放item描述
 	Season           int64  `gorm:"season" json:"season"`   //季 * 100 如果要得出正确的季/100 就行了 \r\n有编号的是特别篇
 	Episode          int64  `gorm:"episode" json:"episode"` //集，分属季的集
-	Id               int64  `gorm:"id" json:"id"`
+	Id               int64  `gorm:"id;PRIMARY_KEY" json:"id"`
 	VideoRefer       int64  `gorm:"video_refer" json:"video_refer"` //1： ddys.art
 	AddDatetime      string `gorm:"add_datetime" json:"add_datetime"`
 	VideoId          int64  `gorm:"video_id" json:"video_id"`

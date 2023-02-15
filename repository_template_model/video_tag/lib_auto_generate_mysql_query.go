@@ -13,12 +13,13 @@ func UpdateVideoTagAll(p *VideoTag) int64 {
 	return build.update(p)
 }
 
-func FetchVideoTagAll() VideoTagCollect {
+func FetchVideoTagAll(order ...string) VideoTagCollect {
 	build := NewVideoTagQuery()
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
-func FetchVideoTagAllWithPageSize(page int, pageSize int) VideoTagCollect {
+func FetchVideoTagAllWithPageSize(page int, pageSize int, order ...string) VideoTagCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -26,6 +27,7 @@ func FetchVideoTagAllWithPageSize(page int, pageSize int) VideoTagCollect {
 	offset := (page - 1) * pageSize
 
 	build := NewVideoTagQuery()
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
@@ -103,13 +105,14 @@ func UpdateVideoTagByVideoId(videoId int64, p *VideoTag) int64 {
 	return build.update(p)
 }
 
-func FetchByVideoId(videoId int64) VideoTagCollect {
+func FetchByVideoId(videoId int64, order ...string) VideoTagCollect {
 	build := NewVideoTagQuery()
 	build.kWheVideoId(videoId)
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
-func FetchByVideoIdWithPageSize(videoId int64, page int, pageSize int) VideoTagCollect {
+func FetchByVideoIdWithPageSize(videoId int64, page int, pageSize int, order ...string) VideoTagCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -117,10 +120,12 @@ func FetchByVideoIdWithPageSize(videoId int64, page int, pageSize int) VideoTagC
 	offset := (page - 1) * pageSize
 
 	build := NewVideoTagQuery()
+	build.kWheVideoId(videoId)
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
-func FetchByVideoIds(videoId []int64) VideoTagCollect {
+func FetchByVideoIds(videoId []int64, order ...string) VideoTagCollect {
 	build := NewVideoTagQuery()
 
 	if len(videoId) == 0 {
@@ -133,6 +138,7 @@ func FetchByVideoIds(videoId []int64) VideoTagCollect {
 		build.kWheVideoIdIn(videoId)
 	}
 
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
@@ -152,7 +158,7 @@ func UpdateVideoTagByVideoIds(videoId []int64, p *VideoTag) int64 {
 	return build.update(p)
 }
 
-func FetchByVideoIdsWithPageSize(videoId []int64, page int, pageSize int) VideoTagCollect {
+func FetchByVideoIdsWithPageSize(videoId []int64, page int, pageSize int, order ...string) VideoTagCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -171,6 +177,7 @@ func FetchByVideoIdsWithPageSize(videoId []int64, page int, pageSize int) VideoT
 		build.kWheVideoIdIn(videoId)
 	}
 
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
@@ -227,7 +234,7 @@ func UpdateVideoTagByIdsWhatEver(id []int64, p *VideoTag) int64 {
 	return build.update(p)
 }
 
-func FetchByIdsWithPageSize(id []int64, page int, pageSize int) VideoTagCollect {
+func FetchByIdsWithPageSize(id []int64, page int, pageSize int, order ...string) VideoTagCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -245,7 +252,7 @@ func FetchByIdsWithPageSize(id []int64, page int, pageSize int) VideoTagCollect 
 	} else {
 		build.kWheIdIn(id)
 	}
-
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
@@ -311,13 +318,14 @@ func UpdateVideoTagByTagId(tagId int64, p *VideoTag) int64 {
 	return build.update(p)
 }
 
-func FetchByTagId(tagId int64) VideoTagCollect {
+func FetchByTagId(tagId int64, order ...string) VideoTagCollect {
 	build := NewVideoTagQuery()
 	build.kWheTagId(tagId)
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
-func FetchByTagIdWithPageSize(tagId int64, page int, pageSize int) VideoTagCollect {
+func FetchByTagIdWithPageSize(tagId int64, page int, pageSize int, order ...string) VideoTagCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -325,10 +333,12 @@ func FetchByTagIdWithPageSize(tagId int64, page int, pageSize int) VideoTagColle
 	offset := (page - 1) * pageSize
 
 	build := NewVideoTagQuery()
+	build.kWheTagId(tagId)
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
-func FetchByTagIds(tagId []int64) VideoTagCollect {
+func FetchByTagIds(tagId []int64, order ...string) VideoTagCollect {
 	build := NewVideoTagQuery()
 
 	if len(tagId) == 0 {
@@ -341,6 +351,7 @@ func FetchByTagIds(tagId []int64) VideoTagCollect {
 		build.kWheTagIdIn(tagId)
 	}
 
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
@@ -360,7 +371,7 @@ func UpdateVideoTagByTagIds(tagId []int64, p *VideoTag) int64 {
 	return build.update(p)
 }
 
-func FetchByTagIdsWithPageSize(tagId []int64, page int, pageSize int) VideoTagCollect {
+func FetchByTagIdsWithPageSize(tagId []int64, page int, pageSize int, order ...string) VideoTagCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -379,6 +390,7 @@ func FetchByTagIdsWithPageSize(tagId []int64, page int, pageSize int) VideoTagCo
 		build.kWheTagIdIn(tagId)
 	}
 
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 

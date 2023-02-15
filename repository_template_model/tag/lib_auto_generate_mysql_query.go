@@ -13,12 +13,13 @@ func UpdateTagAll(p *Tag) int64 {
 	return build.update(p)
 }
 
-func FetchTagAll() TagCollect {
+func FetchTagAll(order ...string) TagCollect {
 	build := NewTagQuery()
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
-func FetchTagAllWithPageSize(page int, pageSize int) TagCollect {
+func FetchTagAllWithPageSize(page int, pageSize int, order ...string) TagCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -26,6 +27,7 @@ func FetchTagAllWithPageSize(page int, pageSize int) TagCollect {
 	offset := (page - 1) * pageSize
 
 	build := NewTagQuery()
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
@@ -67,13 +69,14 @@ func UpdateTagByTagId(tagId int64, p *Tag) int64 {
 	return build.update(p)
 }
 
-func FetchByTagId(tagId int64) TagCollect {
+func FetchByTagId(tagId int64, order ...string) TagCollect {
 	build := NewTagQuery()
 	build.kWheTagId(tagId)
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
-func FetchByTagIdWithPageSize(tagId int64, page int, pageSize int) TagCollect {
+func FetchByTagIdWithPageSize(tagId int64, page int, pageSize int, order ...string) TagCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -81,10 +84,12 @@ func FetchByTagIdWithPageSize(tagId int64, page int, pageSize int) TagCollect {
 	offset := (page - 1) * pageSize
 
 	build := NewTagQuery()
+	build.kWheTagId(tagId)
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
-func FetchByTagIds(tagId []int64) TagCollect {
+func FetchByTagIds(tagId []int64, order ...string) TagCollect {
 	build := NewTagQuery()
 
 	if len(tagId) == 0 {
@@ -97,6 +102,7 @@ func FetchByTagIds(tagId []int64) TagCollect {
 		build.kWheTagIdIn(tagId)
 	}
 
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
@@ -116,7 +122,7 @@ func UpdateTagByTagIds(tagId []int64, p *Tag) int64 {
 	return build.update(p)
 }
 
-func FetchByTagIdsWithPageSize(tagId []int64, page int, pageSize int) TagCollect {
+func FetchByTagIdsWithPageSize(tagId []int64, page int, pageSize int, order ...string) TagCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -135,6 +141,7 @@ func FetchByTagIdsWithPageSize(tagId []int64, page int, pageSize int) TagCollect
 		build.kWheTagIdIn(tagId)
 	}
 
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
@@ -191,7 +198,7 @@ func UpdateTagByIdsWhatEver(id []int64, p *Tag) int64 {
 	return build.update(p)
 }
 
-func FetchByIdsWithPageSize(id []int64, page int, pageSize int) TagCollect {
+func FetchByIdsWithPageSize(id []int64, page int, pageSize int, order ...string) TagCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -209,7 +216,7 @@ func FetchByIdsWithPageSize(id []int64, page int, pageSize int) TagCollect {
 	} else {
 		build.kWheIdIn(id)
 	}
-
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 

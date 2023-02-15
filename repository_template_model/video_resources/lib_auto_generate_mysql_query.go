@@ -13,12 +13,13 @@ func UpdateVideoResourcesAll(p *VideoResources) int64 {
 	return build.update(p)
 }
 
-func FetchVideoResourcesAll() VideoResourcesCollect {
+func FetchVideoResourcesAll(order ...string) VideoResourcesCollect {
 	build := NewVideoResourcesQuery()
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
-func FetchVideoResourcesAllWithPageSize(page int, pageSize int) VideoResourcesCollect {
+func FetchVideoResourcesAllWithPageSize(page int, pageSize int, order ...string) VideoResourcesCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -26,6 +27,7 @@ func FetchVideoResourcesAllWithPageSize(page int, pageSize int) VideoResourcesCo
 	offset := (page - 1) * pageSize
 
 	build := NewVideoResourcesQuery()
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
@@ -67,13 +69,14 @@ func UpdateVideoResourcesByVideoId(videoId int64, p *VideoResources) int64 {
 	return build.update(p)
 }
 
-func FetchByVideoId(videoId int64) VideoResourcesCollect {
+func FetchByVideoId(videoId int64, order ...string) VideoResourcesCollect {
 	build := NewVideoResourcesQuery()
 	build.kWheVideoId(videoId)
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
-func FetchByVideoIdWithPageSize(videoId int64, page int, pageSize int) VideoResourcesCollect {
+func FetchByVideoIdWithPageSize(videoId int64, page int, pageSize int, order ...string) VideoResourcesCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -81,10 +84,12 @@ func FetchByVideoIdWithPageSize(videoId int64, page int, pageSize int) VideoReso
 	offset := (page - 1) * pageSize
 
 	build := NewVideoResourcesQuery()
+	build.kWheVideoId(videoId)
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
-func FetchByVideoIds(videoId []int64) VideoResourcesCollect {
+func FetchByVideoIds(videoId []int64, order ...string) VideoResourcesCollect {
 	build := NewVideoResourcesQuery()
 
 	if len(videoId) == 0 {
@@ -97,6 +102,7 @@ func FetchByVideoIds(videoId []int64) VideoResourcesCollect {
 		build.kWheVideoIdIn(videoId)
 	}
 
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
@@ -116,7 +122,7 @@ func UpdateVideoResourcesByVideoIds(videoId []int64, p *VideoResources) int64 {
 	return build.update(p)
 }
 
-func FetchByVideoIdsWithPageSize(videoId []int64, page int, pageSize int) VideoResourcesCollect {
+func FetchByVideoIdsWithPageSize(videoId []int64, page int, pageSize int, order ...string) VideoResourcesCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -135,6 +141,7 @@ func FetchByVideoIdsWithPageSize(videoId []int64, page int, pageSize int) VideoR
 		build.kWheVideoIdIn(videoId)
 	}
 
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
@@ -200,14 +207,15 @@ func UpdateVideoResourcesByVideoIdAndSeason(videoId int64, season int64, p *Vide
 	return build.update(p)
 }
 
-func FetchByVideoIdAndSeason(videoId int64, season int64) VideoResourcesCollect {
+func FetchByVideoIdAndSeason(videoId int64, season int64, order ...string) VideoResourcesCollect {
 	build := NewVideoResourcesQuery()
 	build.kWheVideoId(videoId)
 	build.kWheSeason(season)
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
-func FetchByVideoIdAndSeasonWithPageSize(videoId int64, season int64, page int, pageSize int) VideoResourcesCollect {
+func FetchByVideoIdAndSeasonWithPageSize(videoId int64, season int64, page int, pageSize int, order ...string) VideoResourcesCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -215,6 +223,9 @@ func FetchByVideoIdAndSeasonWithPageSize(videoId int64, season int64, page int, 
 	offset := (page - 1) * pageSize
 
 	build := NewVideoResourcesQuery()
+	build.kWheVideoId(videoId)
+	build.kWheSeason(season)
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
@@ -259,15 +270,16 @@ func UpdateVideoResourcesByVideoIdAndSeasonAndEpisode(videoId int64, season int6
 	return build.update(p)
 }
 
-func FetchByVideoIdAndSeasonAndEpisode(videoId int64, season int64, episode int64) VideoResourcesCollect {
+func FetchByVideoIdAndSeasonAndEpisode(videoId int64, season int64, episode int64, order ...string) VideoResourcesCollect {
 	build := NewVideoResourcesQuery()
 	build.kWheVideoId(videoId)
 	build.kWheSeason(season)
 	build.kWheEpisode(episode)
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
-func FetchByVideoIdAndSeasonAndEpisodeWithPageSize(videoId int64, season int64, episode int64, page int, pageSize int) VideoResourcesCollect {
+func FetchByVideoIdAndSeasonAndEpisodeWithPageSize(videoId int64, season int64, episode int64, page int, pageSize int, order ...string) VideoResourcesCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -275,6 +287,10 @@ func FetchByVideoIdAndSeasonAndEpisodeWithPageSize(videoId int64, season int64, 
 	offset := (page - 1) * pageSize
 
 	build := NewVideoResourcesQuery()
+	build.kWheVideoId(videoId)
+	build.kWheSeason(season)
+	build.kWheEpisode(episode)
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
@@ -306,7 +322,7 @@ func UpdateVideoResourcesByIdsWhatEver(id []int64, p *VideoResources) int64 {
 	return build.update(p)
 }
 
-func FetchByIdsWithPageSize(id []int64, page int, pageSize int) VideoResourcesCollect {
+func FetchByIdsWithPageSize(id []int64, page int, pageSize int, order ...string) VideoResourcesCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -324,7 +340,7 @@ func FetchByIdsWithPageSize(id []int64, page int, pageSize int) VideoResourcesCo
 	} else {
 		build.kWheIdIn(id)
 	}
-
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 

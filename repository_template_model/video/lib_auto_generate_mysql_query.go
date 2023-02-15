@@ -13,12 +13,13 @@ func UpdateVideoAll(p *Video) int64 {
 	return build.update(p)
 }
 
-func FetchVideoAll() VideoCollect {
+func FetchVideoAll(order ...string) VideoCollect {
 	build := NewVideoQuery()
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
-func FetchVideoAllWithPageSize(page int, pageSize int) VideoCollect {
+func FetchVideoAllWithPageSize(page int, pageSize int, order ...string) VideoCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -26,6 +27,7 @@ func FetchVideoAllWithPageSize(page int, pageSize int) VideoCollect {
 	offset := (page - 1) * pageSize
 
 	build := NewVideoQuery()
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
@@ -67,13 +69,14 @@ func UpdateVideoByPrettyName(prettyName string, p *Video) int64 {
 	return build.update(p)
 }
 
-func FetchByPrettyName(prettyName string) VideoCollect {
+func FetchByPrettyName(prettyName string, order ...string) VideoCollect {
 	build := NewVideoQuery()
 	build.kWhePrettyName(prettyName)
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
-func FetchByPrettyNameWithPageSize(prettyName string, page int, pageSize int) VideoCollect {
+func FetchByPrettyNameWithPageSize(prettyName string, page int, pageSize int, order ...string) VideoCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -81,10 +84,12 @@ func FetchByPrettyNameWithPageSize(prettyName string, page int, pageSize int) Vi
 	offset := (page - 1) * pageSize
 
 	build := NewVideoQuery()
+	build.kWhePrettyName(prettyName)
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
-func FetchByPrettyNames(prettyName []string) VideoCollect {
+func FetchByPrettyNames(prettyName []string, order ...string) VideoCollect {
 	build := NewVideoQuery()
 
 	if len(prettyName) == 0 {
@@ -97,6 +102,7 @@ func FetchByPrettyNames(prettyName []string) VideoCollect {
 		build.kWhePrettyNameIn(prettyName)
 	}
 
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
@@ -116,7 +122,7 @@ func UpdateVideoByPrettyNames(prettyName []string, p *Video) int64 {
 	return build.update(p)
 }
 
-func FetchByPrettyNamesWithPageSize(prettyName []string, page int, pageSize int) VideoCollect {
+func FetchByPrettyNamesWithPageSize(prettyName []string, page int, pageSize int, order ...string) VideoCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -135,6 +141,7 @@ func FetchByPrettyNamesWithPageSize(prettyName []string, page int, pageSize int)
 		build.kWhePrettyNameIn(prettyName)
 	}
 
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
@@ -191,7 +198,7 @@ func UpdateVideoByVideoIdsWhatEver(videoId []int64, p *Video) int64 {
 	return build.update(p)
 }
 
-func FetchByVideoIdsWithPageSize(videoId []int64, page int, pageSize int) VideoCollect {
+func FetchByVideoIdsWithPageSize(videoId []int64, page int, pageSize int, order ...string) VideoCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -209,7 +216,7 @@ func FetchByVideoIdsWithPageSize(videoId []int64, page int, pageSize int) VideoC
 	} else {
 		build.kWheVideoIdIn(videoId)
 	}
-
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 

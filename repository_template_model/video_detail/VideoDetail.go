@@ -20,7 +20,7 @@ type VideoDetail struct {
 	UptDatetime      string  `gorm:"upt_datetime" json:"upt_datetime"`
 	PerUpdateTime    string  `gorm:"per_update_time" json:"per_update_time"` //每次更新时间 ddys: 周几(深夜/凌晨)
 	Season           int64   `gorm:"season" json:"season"`                   //季 * 100 如果要得出正确的季/100 就行了 \r\n有编号的是特别篇
-	Id               int64   `gorm:"id" json:"id"`
+	Id               int64   `gorm:"id;PRIMARY_KEY" json:"id"`
 	SetNum           int64   `gorm:"set_num" json:"set_num"` //本季集数，仅第一次爬取时候的集数，仅豆瓣有的时候显示为最大， 为0的话表示没有该信息，前端可以显示为当前集数
 	AddDatetime      string  `gorm:"add_datetime" json:"add_datetime"`
 	VideoId          int64   `gorm:"video_id" json:"video_id"`

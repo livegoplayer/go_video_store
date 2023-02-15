@@ -3,15 +3,13 @@ version: '2'
 services:
     go_filestore:
       build: ./
-      container_name: go_filestore
+      container_name: go_video_store
       environment:
-         SERVICE_NAME: go_filestore
-         SERVICE_TAGS: go_filestore,http,80
+         SERVICE_NAME: go_video_store
+         SERVICE_TAGS: go_video_store,http,80
       ports:
-         - "81:80"
+         - "8190:80"
       volumes:
          - ../:/apps
-         # 日志存放路径，需要同级目录创建本目录
-         - ../logs:/apps/logs
-      working_dir: /apps/go_file_store
+      working_dir: /apps/go_video_store
       command: /bin/sh -c "make linux_build  && ./main"

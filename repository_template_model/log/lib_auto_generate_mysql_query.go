@@ -13,12 +13,13 @@ func UpdateLogAll(p *Log) int64 {
 	return build.update(p)
 }
 
-func FetchLogAll() LogCollect {
+func FetchLogAll(order ...string) LogCollect {
 	build := NewLogQuery()
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
-func FetchLogAllWithPageSize(page int, pageSize int) LogCollect {
+func FetchLogAllWithPageSize(page int, pageSize int, order ...string) LogCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -26,6 +27,7 @@ func FetchLogAllWithPageSize(page int, pageSize int) LogCollect {
 	offset := (page - 1) * pageSize
 
 	build := NewLogQuery()
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
@@ -67,13 +69,14 @@ func UpdateLogByLevel(level int64, p *Log) int64 {
 	return build.update(p)
 }
 
-func FetchByLevel(level int64) LogCollect {
+func FetchByLevel(level int64, order ...string) LogCollect {
 	build := NewLogQuery()
 	build.kWheLevel(level)
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
-func FetchByLevelWithPageSize(level int64, page int, pageSize int) LogCollect {
+func FetchByLevelWithPageSize(level int64, page int, pageSize int, order ...string) LogCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -81,10 +84,12 @@ func FetchByLevelWithPageSize(level int64, page int, pageSize int) LogCollect {
 	offset := (page - 1) * pageSize
 
 	build := NewLogQuery()
+	build.kWheLevel(level)
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
-func FetchByLevels(level []int64) LogCollect {
+func FetchByLevels(level []int64, order ...string) LogCollect {
 	build := NewLogQuery()
 
 	if len(level) == 0 {
@@ -97,6 +102,7 @@ func FetchByLevels(level []int64) LogCollect {
 		build.kWheLevelIn(level)
 	}
 
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
@@ -116,7 +122,7 @@ func UpdateLogByLevels(level []int64, p *Log) int64 {
 	return build.update(p)
 }
 
-func FetchByLevelsWithPageSize(level []int64, page int, pageSize int) LogCollect {
+func FetchByLevelsWithPageSize(level []int64, page int, pageSize int, order ...string) LogCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -135,6 +141,7 @@ func FetchByLevelsWithPageSize(level []int64, page int, pageSize int) LogCollect
 		build.kWheLevelIn(level)
 	}
 
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
@@ -191,7 +198,7 @@ func UpdateLogByIdsWhatEver(id []int64, p *Log) int64 {
 	return build.update(p)
 }
 
-func FetchByIdsWithPageSize(id []int64, page int, pageSize int) LogCollect {
+func FetchByIdsWithPageSize(id []int64, page int, pageSize int, order ...string) LogCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -209,7 +216,7 @@ func FetchByIdsWithPageSize(id []int64, page int, pageSize int) LogCollect {
 	} else {
 		build.kWheIdIn(id)
 	}
-
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 

@@ -3,6 +3,7 @@ package video_resources
 import (
 	"github.com/livegoplayer/go_db_helper/mysql"
 	"reflect"
+	"strings"
 )
 
 type WhereCb = mysql.WhereCb
@@ -60,6 +61,39 @@ func GetVideoResourcesQueryCols() *_VideoResourcesQueryColsStruct {
 		AddDatetime:      "string",
 		VideoId:          "int64",
 	}
+}
+
+func (cols *_VideoResourcesQueryColsStruct) GetColsTags() []string {
+	return []string{
+		"last_update_time",
+		"video_url",
+		"data",
+		"video_refer_domain",
+		"upt_datetime",
+		"name",
+		"season",
+		"episode",
+		"id",
+		"video_refer",
+		"add_datetime",
+		"video_id",
+	}
+}
+
+func (cols *_VideoResourcesQueryColsStruct) Has(colName string) bool {
+	for _, clo := range cols.GetColsTags() {
+		if clo == colName {
+			return true
+		}
+	}
+	return false
+}
+
+func (cols *_VideoResourcesQueryColsStruct) GetPrimaryColsStr() string {
+	primaryIndexList := []string{
+		"id",
+	}
+	return strings.Join(primaryIndexList, ",")
 }
 
 func (m *VideoResourcesQuery) First() *VideoResources {

@@ -11,7 +11,7 @@ type Video struct {
 	MetaName    string `gorm:"meta_name" json:"meta_name"`     //分国别，用电影原来的名称，确保唯一
 	UptDatetime string `gorm:"upt_datetime" json:"upt_datetime"`
 	AddDatetime string `gorm:"add_datetime" json:"add_datetime"`
-	VideoId     int64  `gorm:"video_id" json:"video_id"`
+	VideoId     int64  `gorm:"video_id;PRIMARY_KEY" json:"video_id"`
 }
 
 func (Video) TableName() string {

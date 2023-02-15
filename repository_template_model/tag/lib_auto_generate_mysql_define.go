@@ -3,6 +3,7 @@ package tag
 import (
 	"github.com/livegoplayer/go_db_helper/mysql"
 	"reflect"
+	"strings"
 )
 
 type WhereCb = mysql.WhereCb
@@ -48,6 +49,33 @@ func GetTagQueryCols() *_TagQueryColsStruct {
 		TagUrl:      "string",
 		AddDatetime: "string",
 	}
+}
+
+func (cols *_TagQueryColsStruct) GetColsTags() []string {
+	return []string{
+		"upt_datetime",
+		"tag_name",
+		"tag_id",
+		"id",
+		"tag_url",
+		"add_datetime",
+	}
+}
+
+func (cols *_TagQueryColsStruct) Has(colName string) bool {
+	for _, clo := range cols.GetColsTags() {
+		if clo == colName {
+			return true
+		}
+	}
+	return false
+}
+
+func (cols *_TagQueryColsStruct) GetPrimaryColsStr() string {
+	primaryIndexList := []string{
+		"id",
+	}
+	return strings.Join(primaryIndexList, ",")
 }
 
 func (m *TagQuery) First() *Tag {

@@ -9,11 +9,16 @@ import (
 
 func InitAppRouter(r *gin.Engine) {
 
-	r.GET("/health", server.NewCtl(HealthHandler))
+	r.GET("/health", server.NewCtl(TestHandler))
 
 	r.Use(ginHelper.ParseParams(&server.MustParams{}))
 	videoGroup := r.Group("/api/video")
 	{
 		videoGroup.GET("/search", server.NewCtl(VideoHandler))
+	}
+
+	tagGroup := r.Group("/api/tag")
+	{
+		tagGroup.GET("/all", server.NewCtl(TagHandler))
 	}
 }

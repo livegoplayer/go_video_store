@@ -13,12 +13,13 @@ func UpdateVideoDetailAll(p *VideoDetail) int64 {
 	return build.update(p)
 }
 
-func FetchVideoDetailAll() VideoDetailCollect {
+func FetchVideoDetailAll(order ...string) VideoDetailCollect {
 	build := NewVideoDetailQuery()
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
-func FetchVideoDetailAllWithPageSize(page int, pageSize int) VideoDetailCollect {
+func FetchVideoDetailAllWithPageSize(page int, pageSize int, order ...string) VideoDetailCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -26,6 +27,7 @@ func FetchVideoDetailAllWithPageSize(page int, pageSize int) VideoDetailCollect 
 	offset := (page - 1) * pageSize
 
 	build := NewVideoDetailQuery()
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
@@ -72,14 +74,15 @@ func UpdateVideoDetailByVideoIdAndSeason(videoId int64, season int64, p *VideoDe
 	return build.update(p)
 }
 
-func FetchByVideoIdAndSeason(videoId int64, season int64) VideoDetailCollect {
+func FetchByVideoIdAndSeason(videoId int64, season int64, order ...string) VideoDetailCollect {
 	build := NewVideoDetailQuery()
 	build.kWheVideoId(videoId)
 	build.kWheSeason(season)
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
-func FetchByVideoIdAndSeasonWithPageSize(videoId int64, season int64, page int, pageSize int) VideoDetailCollect {
+func FetchByVideoIdAndSeasonWithPageSize(videoId int64, season int64, page int, pageSize int, order ...string) VideoDetailCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -87,6 +90,9 @@ func FetchByVideoIdAndSeasonWithPageSize(videoId int64, season int64, page int, 
 	offset := (page - 1) * pageSize
 
 	build := NewVideoDetailQuery()
+	build.kWheVideoId(videoId)
+	build.kWheSeason(season)
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
@@ -118,7 +124,7 @@ func UpdateVideoDetailByIdsWhatEver(id []int64, p *VideoDetail) int64 {
 	return build.update(p)
 }
 
-func FetchByIdsWithPageSize(id []int64, page int, pageSize int) VideoDetailCollect {
+func FetchByIdsWithPageSize(id []int64, page int, pageSize int, order ...string) VideoDetailCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -136,7 +142,7 @@ func FetchByIdsWithPageSize(id []int64, page int, pageSize int) VideoDetailColle
 	} else {
 		build.kWheIdIn(id)
 	}
-
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
@@ -202,13 +208,14 @@ func UpdateVideoDetailByVideoId(videoId int64, p *VideoDetail) int64 {
 	return build.update(p)
 }
 
-func FetchByVideoId(videoId int64) VideoDetailCollect {
+func FetchByVideoId(videoId int64, order ...string) VideoDetailCollect {
 	build := NewVideoDetailQuery()
 	build.kWheVideoId(videoId)
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
-func FetchByVideoIdWithPageSize(videoId int64, page int, pageSize int) VideoDetailCollect {
+func FetchByVideoIdWithPageSize(videoId int64, page int, pageSize int, order ...string) VideoDetailCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -216,10 +223,12 @@ func FetchByVideoIdWithPageSize(videoId int64, page int, pageSize int) VideoDeta
 	offset := (page - 1) * pageSize
 
 	build := NewVideoDetailQuery()
+	build.kWheVideoId(videoId)
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 
-func FetchByVideoIds(videoId []int64) VideoDetailCollect {
+func FetchByVideoIds(videoId []int64, order ...string) VideoDetailCollect {
 	build := NewVideoDetailQuery()
 
 	if len(videoId) == 0 {
@@ -232,6 +241,7 @@ func FetchByVideoIds(videoId []int64) VideoDetailCollect {
 		build.kWheVideoIdIn(videoId)
 	}
 
+	build.OrderBy(parseOrderString(order))
 	return build.Get()
 }
 
@@ -251,7 +261,7 @@ func UpdateVideoDetailByVideoIds(videoId []int64, p *VideoDetail) int64 {
 	return build.update(p)
 }
 
-func FetchByVideoIdsWithPageSize(videoId []int64, page int, pageSize int) VideoDetailCollect {
+func FetchByVideoIdsWithPageSize(videoId []int64, page int, pageSize int, order ...string) VideoDetailCollect {
 	if page == 0 {
 		page = 1
 	}
@@ -270,6 +280,7 @@ func FetchByVideoIdsWithPageSize(videoId []int64, page int, pageSize int) VideoD
 		build.kWheVideoIdIn(videoId)
 	}
 
+	build.OrderBy(parseOrderString(order))
 	return build.Skip(offset).Limit(pageSize).Get()
 }
 

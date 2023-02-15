@@ -3,9 +3,9 @@ package tag
 import "github.com/livegoplayer/go_helper/utils"
 
 func GetLastRangeId(first, end int64) int64 {
-	build := NewTagQuery().where("tagId", ">", first)
+	build := NewTagQuery().kWheTagId(">", first)
 	if end > 0 {
-		build.where("tagId", "<", end)
+		build.kWheTagId("<", end)
 	}
 
 	res := build.OrderBy("tagId", "DESC").First()
@@ -14,9 +14,9 @@ func GetLastRangeId(first, end int64) int64 {
 }
 
 func FetchByRange(first, end int64) TagCollect {
-	query := NewTagQuery().where("tagId", ">", first)
+	query := NewTagQuery().kWheTagId(">", first)
 	if end > 0 && end > first {
-		query.where("tagId", "<", end)
+		query.kWheTagId("<", end)
 	}
 
 	return query.Get()
@@ -94,12 +94,12 @@ func getLastDirectorId() int64 {
 }
 
 // InsertDirector 使用之前请先去重
-func InsertDirector(tagName, tag_url string) int64 {
+func InsertDirector(tagName, tagUrl string) int64 {
 	lastId := getLastDirectorId()
 	item := &Tag{
 		TagId:   lastId + 1,
 		TagName: tagName,
-		TagUrl:  tag_url,
+		TagUrl:  tagUrl,
 	}
 	Save(item)
 	return lastId + 1
@@ -131,17 +131,22 @@ func FetchActorList() TagCollect {
 	return FetchByRange(3000000000, 0)
 }
 
+// FetchVideoCateList 查出video类型
+func FetchVideoCateList() TagCollect {
+	return FetchByRange(0, 100)
+}
+
 func getLastActorId() int64 {
 	return GetLastRangeId(3000000000, 0)
 }
 
 // InsertActor 使用之前请先去重
-func InsertActor(tagName, tag_url string) int64 {
+func InsertActor(tagName, tagUrl string) int64 {
 	lastId := getLastActorId()
 	item := &Tag{
 		TagId:   lastId + 1,
 		TagName: tagName,
-		TagUrl:  tag_url,
+		TagUrl:  tagUrl,
 	}
 	Save(item)
 	return lastId + 1
@@ -164,10 +169,6 @@ func InsertYear(tagName string) string {
 	}
 	Save(item)
 	return tagName
-}
-
-func GetOne(tagId int64) *Tag {
-	return NewTagQuery().where("tagId", tagId).First()
 }
 
 func FetchByTagName(tagName string) TagCollect {
