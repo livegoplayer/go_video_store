@@ -47,10 +47,6 @@ func main() {
 
 	myconfig.InitValidate()
 
-	fmt.Printf("init userClientSuccess")
-
-	fmt.Printf(viper.GetString("app_port"))
-
 	err = r.Run(":" + viper.GetString("app_port"))
 	if err != nil {
 		fmt.Printf("server start error : " + err.Error())

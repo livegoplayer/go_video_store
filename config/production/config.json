@@ -1,4 +1,5 @@
 {
+
   "client_list" : [
     "http://vue-file-store.k8s.show",
     "http://test-vue-file-store.k8s.show",
@@ -6,29 +7,28 @@
   ],
 
   "app_name" : "file_store",
-  "app_host" : "file-store.k8s.show",
+  "app_host" : "file.store.k8s.show",
   "app_port" : "80",
 
-  "auth_middleware": true,
-  "user_app_host" : "http://vue-user.k8s.show",
-  "file_host" : "http://vue-file-store.k8s.show/dnd",
-  "preview_host" : "http://vue-file-store.k8s.show/forward",
+  "user_app_host" : "http://testlocal.52db.work:8080",
+  "preview_host" : "http://testlocal.52db.xyz:9091/forward",
+  "file_host" : "http://testlocal.52db.xyz:9091/dnd",
 
   "log": {
-    "access_log_file_path": "../access_log/file_store",
+    "access_log_file_path": "../access_log/video_store",
     "log_type": "file",
     "file": {
-      "path": "../fs_app_log",
+      "path": "../application_log/vs_app_log",
       "clean_time_hour": 30,
       "split_time_hour": 1
     },
     "mysql": {
-      "username": "myuser",
-      "password": "myuser",
-      "host": "1.116.95.153",
-      "port": 3306,
-      "dbname": "log",
-      "table_name": "fs_app_log"
+      "username": "root",
+      "password": "IfUCT",
+      "host": "124.156.149.7",
+      "port": 39853,
+      "dbname": "video_store",
+      "table_name": "vs_log"
     },
     "rabbitmq":{
       "url": "amqp://guest:guest@139.224.132.234:31001/",
@@ -40,23 +40,23 @@
 
   "database": {
     "default_db": {
-      "name":"file_store"
+      "name":"video_store"
     },
     "file_store_master": {
-      "username": "myuser",
-      "password": "myuser",
-      "prefix": "fs_",
-      "host": "1.116.95.153",
-      "port": 3306,
+      "username": "root",
+      "password": "IfUCT",
+      "prefix": "vs_",
+      "host": "124.156.149.7",
+      "port": 39853,
       "net":  "tcp",
       "allow_native_passwords": true,
       "collation" : "",
-      "dbname": "file_store",
+      "dbname": "video_store",
       "log_mode": true,
       "max_open_con": 10,
       "max_idle_con": 200,
       "is_write": true
     }
-  },
+  }
 
 }
