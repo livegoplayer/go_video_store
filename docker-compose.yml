@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 
 services:
     go_video_store:
@@ -11,5 +11,12 @@ services:
          - "8190:80"
       volumes:
          - ../:/apps
+      networks:
+        - go_video_store_network
       working_dir: /apps/go_video_store
       command: /bin/sh -c "make linux_build  && ./main"
+
+networks:
+    go_video_store_network:
+      # Use a custom driver
+      driver: bridge
